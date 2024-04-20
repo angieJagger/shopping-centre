@@ -3,11 +3,12 @@ import { OrderHistoryService } from '../../services/order-history.service';
 import { OrderHistory } from '../../common/order-history';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { OktaAuthModule } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-order-history',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, OktaAuthModule],
   templateUrl: './order-history.component.html',
   styleUrl: './order-history.component.scss'
 })

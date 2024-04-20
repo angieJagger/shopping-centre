@@ -1,13 +1,14 @@
 import { ApplicationConfig , Injector, importProvidersFrom } from '@angular/core';
 import { Router, provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { OktaAuth } from '@okta/okta-auth-js';
-import { OktaAuthModule } from '@okta/okta-angular';
+import { OKTA_CONFIG, OktaAuthModule } from '@okta/okta-angular';
 
 
 import { routes } from './app.routes';
 import myAppConfig from './config/my-app-config';
 import { ProductService } from './services/product.service';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -23,8 +24,10 @@ export function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 export const appConfig: ApplicationConfig = {
 
   providers: [provideRouter(routes),
-    // importProvidersFrom(HttpClientModule), {provide: OKTA_CONFIG, useValue: { oktaAuth }}, ]
+    importProvidersFrom(HttpClientModule),
     provideHttpClient(),
+    {provide: OKTA_CONFIG, useValue: oktaConfig},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
     importProvidersFrom(OktaAuthModule.forRoot({ oktaAuth})),
   ProductService]
 };
