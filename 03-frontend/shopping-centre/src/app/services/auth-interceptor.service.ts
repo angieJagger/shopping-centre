@@ -18,8 +18,8 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     // Only add an access token for secured endpoints
     const securedEndpoints = ['http://localhost:8080/api/orders'];
-    
-    //const securedEndpoints = [environment.myShopApiUrl + '/orders'];
+
+    //const securedEndpoints = [environment.myShopApiUri + '/orders'];
 
     if (securedEndpoints.some(url => request.urlWithParams.includes(url))) {
 
