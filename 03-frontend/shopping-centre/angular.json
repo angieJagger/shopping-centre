@@ -53,10 +53,25 @@
               ],
               "outputHashing": "all"
             },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
+            },
+
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -66,6 +81,9 @@
           "configurations": {
             "production": {
               "buildTarget": "shopping-centre:build:production"
+            },
+            "qa": {
+              "buildTarget": "shopping-centre:build:qa"
             },
             "development": {
               "buildTarget": "shopping-centre:build:development"
